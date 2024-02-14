@@ -1,0 +1,10 @@
+class Card {
+  constructor(readonly title: string, readonly estimative: number) {
+    if (title === "") {
+      throw new Error("Title is required");
+      
+    }
+  }
+}
+
+export default Card;
