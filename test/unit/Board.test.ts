@@ -1,4 +1,4 @@
-import Board from "../../src/Entity/Board";
+import Board from "../../src/domain/entity/Board";
 
 test("Deve criar um quadro", function() {
     const board = new Board("Projeto 1");

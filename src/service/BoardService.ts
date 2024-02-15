@@ -1,20 +1,11 @@
-import Board from "../Entity/Board";
-import pgp from "pg-promise";
+import BoardRepository from "../domain/repository/BoardRepository";
 
 export default class BoardService {
-    constructor() {
+    constructor(readonly boardRepository: BoardRepository) {
     }
 
     async getBoards() {
-        const connection = pgp()("postgres://postgres:1234@localhost:5434/app");
-        const boardsData = await connection.query("select * from branas.board", []);
-        const boards: Board[] = [];
-    
-        for (const boardData of boardsData) {
-            boards.push(new Board(boardData.name));
-        } 
-
-        await connection.$pool.end();
+        const boards = await this.boardRepository.findAll();
         return boards;
     }
 }

@@ -1,4 +1,4 @@
-import Column from "../../src/Entity/Column";
+import Column from "../../src/domain/entity/Column";
 
 test("Deve criar uma Coluna", function() {
     const column = new Column("Coluna A", true);

@@ -1,22 +1,10 @@
-import Column from "../Entity/Column";
-import pgp from "pg-promise";
+import ColumnRepository from "../domain/repository/ColumnRepository";
 
 export default class ColumnService {
-  constructor() {}
+  constructor(readonly columnRespository: ColumnRepository) {}
 
   async getColumns(idBoard: number) {
-    const connection = pgp()("postgres://postgres:1234@localhost:5434/app");
-    const columnsData = await connection.query(
-      "select * from branas.column where id_board = $1",
-      [idBoard]
-    );
-    const columns: Column[] = [];
-
-    for (const columnData of columnsData) {
-      columns.push(new Column(columnData.name, columnData.has_estimative));
-    }
-
-    await connection.$pool.end();
+    const columns = await this.columnRespository.findAllByIdBoard(idBoard);
     return columns;
   }
 }
