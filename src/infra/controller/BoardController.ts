@@ -11,7 +11,9 @@ export default class BoardController {
     constructor(readonly http: Http, readonly connection: Connection) {
         http.route("get", "/boards", async function(params: any, body: any) {
             const boardRepository = new BoardRepositoryDatabase(connection);
-            const boardService = new BoardService(boardRepository);
+            const columnRepository = new ColumnRepositoryDatabase(connection);
+            const cardRepository = new CardRepositoryDatabase(connection);
+            const boardService = new BoardService(boardRepository, cardRepository, columnRepository);
             const boards = await boardService.getBoards();
             return boards;
         });
